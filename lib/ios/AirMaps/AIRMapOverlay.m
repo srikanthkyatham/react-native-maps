@@ -47,6 +47,20 @@
                                                                  }];
 }
 
+- (void)setBearing:(CGFloat)bearing {
+  if (_bearing != bearing) {
+    _bearing = bearing;
+    [self update];
+  }
+}
+
+- (void)setResizeMode:(RCTResizeMode)resizeMode {
+  if (_resizeMode != resizeMode) {
+    _resizeMode = resizeMode;
+    [self update];
+  }
+}
+
 - (void)setBoundsRect:(NSArray *)boundsRect {
     _boundsRect = boundsRect;
 
@@ -71,6 +85,8 @@
 - (void)update
 {
     if (!_renderer) return;
+    _renderer.bearing = _bearing;
+    _renderer.resizeMode = _resizeMode;
 
     if (_map == nil) return;
     [_map removeOverlay:self];

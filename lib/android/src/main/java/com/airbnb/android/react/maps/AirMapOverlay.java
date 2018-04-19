@@ -24,6 +24,7 @@ public class AirMapOverlay extends AirMapFeature implements ImageReadable {
   private Bitmap iconBitmap;
   private float zIndex;
   private float transparency;
+  private float bearing;
 
   private final ImageReader mImageReader;
   private GoogleMap map;
@@ -31,6 +32,7 @@ public class AirMapOverlay extends AirMapFeature implements ImageReadable {
   public AirMapOverlay(Context context) {
     super(context);
     this.mImageReader = new ImageReader(context, getResources(), this);
+    bearing = 0;
   }
 
   public void setBounds(ReadableArray bounds) {
@@ -56,6 +58,15 @@ public class AirMapOverlay extends AirMapFeature implements ImageReadable {
   //     }
   // }
 
+  public void setBearing(float bearing) {
+    if (this.bearing != bearing) {
+      this.bearing = bearing;
+      if (groundOverlay != null) {
+        groundOverlay.setBearing(bearing);
+      }
+    }
+  }
+
   public void setImage(String uri) {
     this.mImageReader.setImage(uri);
   }
@@ -77,6 +88,7 @@ public class AirMapOverlay extends AirMapFeature implements ImageReadable {
       options.image(iconBitmapDescriptor);
       options.positionFromBounds(bounds);
       options.zIndex(zIndex);
+      options.bearing(bearing);
       return options;
     }
     return null;

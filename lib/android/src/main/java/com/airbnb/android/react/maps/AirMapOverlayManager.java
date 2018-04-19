@@ -61,6 +61,10 @@ public class AirMapOverlayManager extends ViewGroupManager<AirMapOverlay> {
     view.setImage(source);
   }
 
+  @ReactProp(name = "bearing", defaultFloat = 0.0f)
+  public void setBounds(AirMapOverlay view, float bearing) {
+    view.setBearing(bearing);
+  }
 
   @Override
   @Nullable

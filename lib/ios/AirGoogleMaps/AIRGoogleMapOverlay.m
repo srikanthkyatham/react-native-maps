@@ -60,6 +60,13 @@
 
 }
 
+- (void)setBearing:(CGFloat)bearing {
+  if (_bearing != bearing) {
+    _bearing = bearing;
+    _overlayLayer.bearing = _bearing;
+  }
+}
+
 - (void)setBoundsRect:(NSArray *)boundsRect
 {
   _boundsRect = boundsRect;

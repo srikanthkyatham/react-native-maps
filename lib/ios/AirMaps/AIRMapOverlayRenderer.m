@@ -13,12 +13,20 @@
     MKMapRect theMapRect = [self.overlay boundingMapRect];
     CGRect theRect = [self rectForMapRect:theMapRect];
     
-    CGContextRotateCTM(context, M_PI);
+    if (_bearing != 0) {
+        CGContextRotateCTM(context, [self degreesToRadians:_bearing]);
+    } else {
+        CGContextRotateCTM(context, M_PI);
+    }
     CGContextScaleCTM(context, -1.0, 1.0);
     CGContextAddRect(context, theRect);
     CGContextDrawImage(context, theRect, imageReference);
     
     CGContextRestoreGState(context);
+}
+
+- (CGFloat)degreesToRadians:(CGFloat)degrees {
+  return (M_PI * degrees / 180.0);
 }
 
 - (BOOL)canDrawMapRect:(MKMapRect)mapRect zoomScale:(MKZoomScale)zoomScale {
