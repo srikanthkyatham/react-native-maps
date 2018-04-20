@@ -1,4 +1,5 @@
 #import <MapKit/MapKit.h>
+#import <React/RCTResizeMode.h>
 
 @interface AIRMapOverlayRenderer : MKOverlayRenderer
 

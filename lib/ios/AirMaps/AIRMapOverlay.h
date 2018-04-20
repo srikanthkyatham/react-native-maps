@@ -5,6 +5,7 @@
 
 #import "RCTConvert+AirMap.h"
 #import <React/RCTComponent.h>
+#import <React/RCTResizeMode.h>
 #import "AIRMap.h"
 #import "AIRMapOverlayRenderer.h"
 
