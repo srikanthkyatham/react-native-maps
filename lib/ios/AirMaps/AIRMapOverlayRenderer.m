@@ -20,6 +20,7 @@
     }
     CGContextScaleCTM(context, -1.0, 1.0);
     CGContextAddRect(context, theRect);
+    CGContextTranslateCTM(context, 0.0, -theRect.size.height);
     CGContextDrawImage(context, theRect, imageReference);
     
     CGContextRestoreGState(context);
