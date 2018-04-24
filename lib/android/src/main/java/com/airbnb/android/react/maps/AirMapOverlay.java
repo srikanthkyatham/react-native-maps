@@ -36,9 +36,13 @@ public class AirMapOverlay extends AirMapFeature implements ImageReadable {
   }
 
   public void setBounds(ReadableArray bounds) {
+    LatLngBounds.Builder builder = new LatLngBounds.Builder();
+
     LatLng sw = new LatLng(bounds.getArray(1).getDouble(0), bounds.getArray(0).getDouble(1));
     LatLng ne = new LatLng(bounds.getArray(0).getDouble(0), bounds.getArray(1).getDouble(1));
-    this.bounds = new LatLngBounds(sw, ne);
+    builder.include(sw);
+    builder.include(ne);
+    this.bounds = builder.build();
     if (this.groundOverlay != null) {
       this.groundOverlay.setPositionFromBounds(this.bounds);
     }
@@ -84,11 +88,12 @@ public class AirMapOverlay extends AirMapFeature implements ImageReadable {
       return this.groundOverlayOptions;
     }
     if (this.iconBitmapDescriptor != null) {
-      GroundOverlayOptions options = new GroundOverlayOptions();
-      options.image(iconBitmapDescriptor);
-      options.positionFromBounds(bounds);
-      options.zIndex(zIndex);
-      options.bearing(bearing);
+      GroundOverlayOptions options = new GroundOverlayOptions()
+          .anchor(0.0f, 0.0f)
+          .image(iconBitmapDescriptor)
+          .positionFromBounds(bounds)
+          .zIndex(zIndex)
+          .bearing(bearing);
       return options;
     }
     return null;
@@ -135,6 +140,7 @@ public class AirMapOverlay extends AirMapFeature implements ImageReadable {
     this.groundOverlay = getGroundOverlay();
     if (this.groundOverlay != null) {
       this.groundOverlay.setImage(this.iconBitmapDescriptor);
+      this.groundOverlay.setBearing(this.bearing);
       this.groundOverlay.setClickable(true);
     }
   }
