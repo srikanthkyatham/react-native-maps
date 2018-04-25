@@ -7,6 +7,7 @@
 
 #import <React/RCTConvert+CoreLocation.h>
 #import "AIRMapCoordinate.h"
+#define IS_IOS11orHIGHER ([[[UIDevice currentDevice] systemVersion] floatValue] >= 11.0)
 
 @implementation RCTConvert (AirMap)
 
@@ -27,6 +28,7 @@
   };
 }
 
+#ifdef IS_IOS11orHIGHER
 RCT_ENUM_CONVERTER(MKMapType, (@{
   @"standard": @(MKMapTypeStandard),
   @"satellite": @(MKMapTypeSatellite),
@@ -35,6 +37,15 @@ RCT_ENUM_CONVERTER(MKMapType, (@{
   @"hybridFlyover": @(MKMapTypeHybridFlyover),
   @"mutedStandard": @(MKMapTypeMutedStandard)
 }), MKMapTypeStandard, integerValue)
+#else
+RCT_ENUM_CONVERTER(MKMapType, (@{
+  @"standard": @(MKMapTypeStandard),
+  @"satellite": @(MKMapTypeSatellite),
+  @"hybrid": @(MKMapTypeHybrid),
+  @"satelliteFlyover": @(MKMapTypeSatelliteFlyover),
+  @"hybridFlyover": @(MKMapTypeHybridFlyover),
+}), MKMapTypeStandard, integerValue)
+#endif
 
 // NOTE(lmr):
 // This is a bit of a hack, but I'm using this class to simply wrap
