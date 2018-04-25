@@ -7,7 +7,6 @@
 
 #import <React/RCTConvert+CoreLocation.h>
 #import "AIRMapCoordinate.h"
-#define IS_IOS11orHIGHER ([[[UIDevice currentDevice] systemVersion] floatValue] >= 11.0)
 
 @implementation RCTConvert (AirMap)
 
@@ -28,7 +27,7 @@
   };
 }
 
-#ifdef IS_IOS11orHIGHER
+#ifdef MKMapTypeMutedStandard
 RCT_ENUM_CONVERTER(MKMapType, (@{
   @"standard": @(MKMapTypeStandard),
   @"satellite": @(MKMapTypeSatellite),
