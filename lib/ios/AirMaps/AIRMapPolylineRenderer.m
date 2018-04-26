@@ -227,9 +227,11 @@
                                         kCGGradientDrawsBeforeStartLocation | kCGGradientDrawsAfterEndLocation
                                         );
             CGGradientRelease(gradient);
-            if (CGContextResetClip != NULL) {
-              CGContextResetClip(context);
-            }
+            #if __IPHONE_OS_VERSION_MAX_ALLOWED >= 110000
+    	          CGContextResetClip(context);
+            #else
+                // alternative for CGContextResetClip
+            #endif
         }
         else {
             CGContextSetStrokeColorWithColor(context, segment.startColor.CGColor);
