@@ -27,7 +27,13 @@
 }
 
 - (CGFloat)degreesToRadians:(CGFloat)degrees {
-  return (M_PI * degrees / 180.0);
+    // kind of hacky but for some reason overlays and rendered upside down
+    // this seems to fix the issue
+    degrees += 180;
+    if (degrees > 360) {
+        degrees -= 360;
+    }
+    return (M_PI * degrees / 180.0);
 }
 
 - (BOOL)canDrawMapRect:(MKMapRect)mapRect zoomScale:(MKZoomScale)zoomScale {
