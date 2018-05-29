@@ -57,7 +57,7 @@ public class ImageReader {
                   imp.setIconBitmap(bitmap);
                   imp.setIconBitmapDescriptor(BitmapDescriptorFactory.fromBitmap(bitmap));
                 }
-                image.close();
+                //image.close();
               }
             }
           } finally {
